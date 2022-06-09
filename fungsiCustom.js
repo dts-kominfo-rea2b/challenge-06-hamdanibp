@@ -19,18 +19,18 @@ let modifyFile3 = (val) => {
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = callback => {
+const bacaData = fnCallback => {
   const files = [];
 
   fs.readFile(file1, "utf-8", (err, data) => {
-    if(err) return callback(err, data);
+    if(err) return fnCallback(err, data);
 
     const parseData = JSON.parse(data);
     const splitData = parseData.message.split(" ")[1];
     files.push(splitData);
 
     fs.readFile(file2, "utf-8", (err, data) => {
-      if(err) return callback(err, data);
+      if(err) return fnCallback(err, data);
 
       const parseData = JSON.parse(data);
       const getMessage = parseData.map(item => item.message)[0];
@@ -38,14 +38,14 @@ const bacaData = callback => {
       files.push(splitData);
 
       fs.readFile(file3, "utf-8", (err, data) => {
-        if(err) return callback(err, data);
+        if(err) return fnCallback(err, data);
 
         const parseData = JSON.parse(data);
         const getMessage = parseData.map(item => item.data.message)[0];
         const splitData = getMessage.split(" ")[1];
         files.push(splitData);
 
-        return callback(err, files);
+        return fnCallback(err, files);
       });
     });
   });
